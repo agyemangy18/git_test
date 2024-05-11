@@ -47,14 +47,10 @@ function playRound(humanChoice, computerChoice){
 
 function playGame()
 {
-    let i = 0
-    
-     const humanSelection = getHumanChoice();
+    const humanSelection = getHumanChoice();
     const computerSelection = getComputerChoice();
 
     playRound(humanSelection, computerSelection);
-    i++;
-    
 
 }
 
