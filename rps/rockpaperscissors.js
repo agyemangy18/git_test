@@ -48,20 +48,14 @@ function playRound(humanChoice, computerChoice){
 function playGame()
 {
     let i = 0
-    while (i < 5){
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-
-        playRound(humanSelection, computerSelection);
-        i++;
-    }
     
-    if (humanScore > computerScore){
-        console.log("You won the gam, Great Jo!")
-    }
-    else{
-        console.log("Computer beat you. Better luck next time")
-    }
+     const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+
+    playRound(humanSelection, computerSelection);
+    i++;
+    
+
 }
 
 playGame()
