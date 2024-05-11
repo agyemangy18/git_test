@@ -1,3 +1,3 @@
 # git_test
 
-Hello Odin
+This is for practice using git and github
