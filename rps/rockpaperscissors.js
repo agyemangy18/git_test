@@ -1,65 +1,73 @@
-let humanScore = 0
-let computerScore = 0
-// Gets the computers choice by using math random method
-function getComputerChoice(){
+let humanScore = 0;
+let computerScore = 0;
+const winningScore = 5; // Score needed to win
+
+function getComputerChoice() {
     const choices = ["rock", "paper", "scissors"];
-    let choice = Math.floor(Math.random() * 3)
-    return choices[choice]
-    // console.log(choices[choice])
+    const choice = Math.floor(Math.random() * 3);
+    return choices[choice];
 }
 
-function getHumanChoice(){
-    const choices = ["rock", "paper", "scissors"];
-    let choice = prompt("What guess would you like to make: ")
-    choice = choice.toLowerCase();
-    while(!choices.includes(choice)){
-        choice = prompt("Invalid answer. Enter between Rock, Paper or Scissors: ")
-    }
-    return choice
-    // console.log(choice);
+function updateResults(message) {
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.textContent = message;
 }
 
+function updateScore() {
+    const scoreDiv = document.createElement("div");
+    scoreDiv.textContent = `Human: ${humanScore} | Computer: ${computerScore}`;
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.appendChild(scoreDiv);
+}
 
+function playRound(humanChoice, computerChoice) {
+    updateResults(`Human's choice: ${humanChoice}, Computer's choice: ${computerChoice}`);
 
-function playRound(humanChoice, computerChoice){
-    console.log("Welcome to Rock, Paper, Scissors.\n You will be playin against the computer")
-    console.log("Computer's choice", computerChoice)
-    console.log("Human's choice", humanChoice)
-
-    if (humanChoice == computerChoice){
-        console.log("It's a tie!")
-    }
-    else if (
+    if (humanChoice === computerChoice) {
+        updateResults("It's a tie!");
+    } else if (
         (humanChoice === "rock" && computerChoice === "scissors") ||
         (humanChoice === "paper" && computerChoice === "rock") ||
         (humanChoice === "scissors" && computerChoice === "paper")
     ) {
-        console.log("You win!");
+        updateResults("You win!");
         humanScore++;
     } else {
-        console.log("You lose!");
+        updateResults("Computer wins!");
         computerScore++;
     }
 
-    console.log("Your score is " ,humanScore)
-    console.log("Computer's score is " ,computerScore)
+    updateScore();
+
+    if (humanScore === winningScore || computerScore === winningScore) {
+        announceWinner();
+    }
 }
 
-function playGame()
-{
-    const humanSelection = getHumanChoice();
+function announceWinner() {
+    let winner;
+    if (humanScore === winningScore) {
+        winner = "Human";
+    } else {
+        winner = "Computer";
+    }
+    updateResults(`${winner} wins the game!`);
+}
+
+function playGame(playerSelection) {
     const computerSelection = getComputerChoice();
-
-    playRound(humanSelection, computerSelection);
-
+    playRound(playerSelection, computerSelection);
 }
 
-playGame()
+// Event listeners for buttons
+document.getElementById("rock").addEventListener("click", function() {
+    playGame("rock");
+});
 
+document.getElementById("paper").addEventListener("click", function() {
+    playGame("paper");
+});
 
-
-
-    
-
-
-
+document.getElementById("scissors").addEventListener("click", function() {
+    playGame("scissors");
+});
